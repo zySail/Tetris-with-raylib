@@ -1,4 +1,4 @@
-#include "Grid.h"
+#include "grid.h"
 #include <iostream>
 #include "color.h"
 
@@ -33,8 +33,14 @@ void Grid::Draw(){
             int cellValue = grid[i][j];
             int x = j * cellSize;
             int y = i * cellSize;
-            //DrawRectangleLines(x, y, cellSize, cellSize, WHITE);
             DrawRectangle(x + GRID_WIDTH, y + GRID_WIDTH, cellSize - GRID_WIDTH, cellSize - GRID_WIDTH, gridColor[cellValue]);
         }
     }     
+}
+
+void Grid::Draw(int x, int y){
+    DrawRectangle(  x*GRID_CELL_SIZE + GRID_WIDTH, 
+                    y*GRID_CELL_SIZE + GRID_WIDTH, 
+                    cellSize - GRID_WIDTH, 
+                    cellSize - GRID_WIDTH, gridColor[1]);
 }

@@ -1,11 +1,8 @@
 #include <array>
 #include <vector>
 #include <raylib.h>
+#include "config.h"
 
-#define GRID_ROW_SIZE    20
-#define GRID_COL_SIZE    10
-#define GRID_CELL_SIZE   50
-#define GRID_WIDTH       1
 
 class Grid{
 private:
@@ -20,4 +17,5 @@ public:
     void Initialize();
     void print();
     void Draw();
+    void Draw(int x, int y);
 };
