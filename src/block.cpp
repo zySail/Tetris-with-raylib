@@ -7,7 +7,7 @@
 /* Block
 -----------------------------------------------------------------------------------------*/
 Block::Block(int id) : id(id){
-    statusVal = 1;
+    statusVal = 0;
 }
 
 void Block::addStatus(int key, std::vector<Position> pos){
@@ -17,11 +17,12 @@ void Block::addStatus(int key, std::vector<Position> pos){
 }
 
 void Block::changeStatus(){
-    statusVal = (statusVal+1) % 4;
+    statusVal = (statusVal + 1) % 4;
 }
 
 void Block::Draw(){
-    for(Position it : status[statusVal]){ //ergodic every position
+    for(Position it : status[statusVal]){ 
+        //ergodic current status's every block's position then draw the cell
         DrawRectangle(  it.getCol()*GRID_CELL_SIZE + GRID_WIDTH, 
                         it.getRow()*GRID_CELL_SIZE + GRID_WIDTH, 
                         GRID_CELL_SIZE - GRID_WIDTH, 
@@ -34,15 +35,6 @@ void Block::setId(int new_id){
     id = new_id;
 }
 
-void Block::testDrawBlock(){
-    for(int i = 0; i < 4; i++){
-        changeStatus();
-        Draw();
-        WaitTime(2.0);
-        setId(0);
-        Draw();
-    }
-}
 
 /* LBlock
 -----------------------------------------------------------------------------------------*/
@@ -74,6 +66,9 @@ IBlock::IBlock() : Block(3){
 -----------------------------------------------------------------------------------------*/
 OBlock::OBlock() : Block(4){
     addStatus(0, {Position(0,0), Position(0,1), Position(1,0), Position(1,1)});
+    addStatus(1, {Position(0,0), Position(0,1), Position(1,0), Position(1,1)});
+    addStatus(2, {Position(0,0), Position(0,1), Position(1,0), Position(1,1)});
+    addStatus(3, {Position(0,0), Position(0,1), Position(1,0), Position(1,1)});
 }
 
 /* SBlock

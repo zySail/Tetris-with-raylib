@@ -16,7 +16,6 @@ public:
     void addStatus(int key, std::vector<Position> pos);
     void changeStatus();
     void Draw();
-    void testDrawBlock();
     void setId(int new_id);
 };
 
