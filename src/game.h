@@ -9,19 +9,24 @@
 class Game{
 private:
     Grid gameGrid;
-    Block currenBlock;
+    Block currentBlock;
     Block nextBlock;
     std::vector<Block> blocks;
     double dropSpeed;
+    int score;
+    bool gameOverFlag;
 public: 
     Game();
-    void Draw();
+    void loop();
     Block getRandonBlock();
     bool isBlockOutside();
+    bool isBlockCollision();
     void HandleInput();
     void moveBlockLeft();
     void moveBlockRight();
     void moveBlockDown();
     void rotateBlock();
     void setDropSpeed(double newSpeed);
+    void dropBlock();
+    void lockBlock();
 };

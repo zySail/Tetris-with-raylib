@@ -7,23 +7,27 @@ static int picked[7] = {0};
 Game::Game(){
     gameGrid = Grid();
     blocks = {LBlock() , JBlock(), IBlock(), OBlock(), SBlock(), TBlock(), ZBlock()};
-    currenBlock = getRandonBlock();
+    currentBlock = getRandonBlock();
     nextBlock = getRandonBlock();
-    dropSpeed = 0.2;
+    dropSpeed = 0.1;
+    gameOverFlag = false;
 }
 
-void Game::Draw(){
+void Game::loop(){
     gameGrid.Draw();
-    currenBlock.Draw();
-    if(eventTriggered(0.5)){
-        moveBlockDown();
-    }
+    currentBlock.Draw();
+    dropBlock();
 }
 
 void Game::setDropSpeed(double newSpeed){
     dropSpeed = newSpeed;
 }
 
+void Game::dropBlock(){
+    if(eventTriggered(dropSpeed)){
+        moveBlockDown();
+    }
+}
 
 Block Game::getRandonBlock(){
     int index;
@@ -64,7 +68,7 @@ void Game::HandleInput(){
 }
 
 bool Game::isBlockOutside(){
-    for(Position cellPos : currenBlock.getCellPosition()){
+    for(const Position& cellPos : currentBlock.getCellPosition()){
         if(gameGrid.isCellOutside(cellPos.getRow(), cellPos.getCol())){
             return true; // Block has cell outside
         }
@@ -73,29 +77,59 @@ bool Game::isBlockOutside(){
 }
 
 void Game::moveBlockLeft(){
-    currenBlock.move(0,-1);
-    if(isBlockOutside()){
-        currenBlock.move(0,1);
+    if(!gameOverFlag){
+        currentBlock.move(0,-1);
+        if(isBlockOutside() || isBlockCollision()){
+            currentBlock.move(0,1);
+        }
     }
 }
 
 void Game::moveBlockRight(){
-    currenBlock.move(0,1);
-    if(isBlockOutside()){
-        currenBlock.move(0,-1);
+    if(!gameOverFlag){
+        currentBlock.move(0,1);
+        if(isBlockOutside() || isBlockCollision()){
+            currentBlock.move(0,-1);
+        }
     }
 }
 
 void Game::moveBlockDown(){
-    currenBlock.move(1,0);
-    if(isBlockOutside()){
-        currenBlock.move(-1,0);
+    if(!gameOverFlag){
+        currentBlock.move(1,0);
+        if(isBlockOutside() || isBlockCollision()){
+            currentBlock.move(-1,0);
+            lockBlock();
+        }
     }
 }
 
 void Game::rotateBlock(){
-    currenBlock.rotate();
-    if(isBlockOutside()){
-        currenBlock.undoRotate();
+    if(!gameOverFlag){
+        currentBlock.rotate();
+        if(isBlockOutside() || isBlockCollision()){
+            currentBlock.undoRotate();
+        }
     }
+}
+
+void Game::lockBlock(){
+    for(const Position& cellPos : currentBlock.getCellPosition()){
+        gameGrid.grid[cellPos.getRow()][cellPos.getCol()] = currentBlock.getId();
+    }
+    int s = gameGrid.clearFullRow();
+    currentBlock = nextBlock;
+    nextBlock = getRandonBlock();
+    if(isBlockCollision()){
+        gameOverFlag = true;
+    }
+}
+
+bool Game::isBlockCollision(){
+    for(const Position& cellPos : currentBlock.getCellPosition()){
+        if(gameGrid.isCellOccupied(cellPos.getRow(), cellPos.getCol())){
+            return true;
+        }
+    }
+    return false; 
 }

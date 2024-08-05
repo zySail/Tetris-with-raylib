@@ -21,4 +21,9 @@ public:
     void Draw();
     void Draw(int x, int y);
     bool isCellOutside(int row, int col);
+    bool isCellOccupied(int row , int col);
+    bool isRowFull(int row);
+    void clearRow(int row);
+    void moveRowDown(int row, int layer);
+    int clearFullRow();
 };

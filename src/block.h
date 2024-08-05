@@ -18,6 +18,7 @@ public:
     void rotate();
     void undoRotate();
     void Draw();
+    int getId();
     void setId(int new_id); // used by child block constructor
     void move(int rowOffest, int colOffest);
     std::vector<Position> getCellPosition(); // apply offest to all status

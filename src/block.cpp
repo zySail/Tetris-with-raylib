@@ -10,12 +10,17 @@
 Block::Block(){
     id = 0;
     statusVal = 0;
+    offest.setPosition(0,4);
 }
 
 void Block::addStatus(int key, std::vector<Position> pos){
     for(const Position& it : pos){
         status[key].push_back(it);
     }
+}
+
+int Block::getId(){
+    return id;
 }
 
 void Block::setId(int new_id){
@@ -51,7 +56,6 @@ void Block::Draw(){
 
 void Block::move(int rowOffest, int colOffest){
     offest.add(rowOffest, colOffest);
-    std::cout << offest.getRow() << "," << offest.getCol() << std::endl;
 }
 
 

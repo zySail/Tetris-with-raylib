@@ -9,17 +9,14 @@ int main()
     InitWindow(500 + GRID_WIDTH, 1000 + GRID_WIDTH, "Tetris");
     SetTargetFPS(60);
     Game game = Game();
-    //gameGrid.print();
 
     while(!WindowShouldClose()){
         game.HandleInput();
         BeginDrawing();
         ClearBackground(darkBlue);
-        game.Draw();
+        game.loop();
         EndDrawing();
     }
-    
-    EndDrawing();
 
     CloseWindow();
     return 0;
