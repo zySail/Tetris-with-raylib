@@ -3,10 +3,12 @@
 #include "config.h"
 #include "color.h"
 #include "grid.h"
+#include <iostream>
 
 /* Block
 -----------------------------------------------------------------------------------------*/
-Block::Block(int id) : id(id){
+Block::Block(){
+    id = 0;
     statusVal = 0;
 }
 
@@ -16,29 +18,47 @@ void Block::addStatus(int key, std::vector<Position> pos){
     }
 }
 
-void Block::changeStatus(){
+void Block::setId(int new_id){
+    id = new_id;
+}
+
+void Block::rotate(){
     statusVal = (statusVal + 1) % 4;
 }
 
+void Block::undoRotate(){
+    statusVal = (statusVal + 3) % 4;
+}
+
+std::vector<Position> Block::getCellPosition(){
+    std::vector<Position> cellPosition = status[statusVal];
+    for(Position& cellPos : cellPosition){
+        cellPos.add(offest.getRow(), offest.getCol()); //add offest to cell position
+    }
+    return cellPosition;
+}
+
 void Block::Draw(){
-    for(Position it : status[statusVal]){ 
+    for(const Position& cellPos : getCellPosition()){ 
         //ergodic current status's every block's position then draw the cell
-        DrawRectangle(  it.getCol()*GRID_CELL_SIZE + GRID_WIDTH, 
-                        it.getRow()*GRID_CELL_SIZE + GRID_WIDTH, 
+        DrawRectangle(  cellPos.getCol()*GRID_CELL_SIZE + GRID_WIDTH, 
+                        cellPos.getRow()*GRID_CELL_SIZE + GRID_WIDTH, 
                         GRID_CELL_SIZE - GRID_WIDTH, 
                         GRID_CELL_SIZE - GRID_WIDTH, 
-                        colorVertor[id] );
+                        colorVector[id] );
     }
 }
 
-void Block::setId(int new_id){
-    id = new_id;
+void Block::move(int rowOffest, int colOffest){
+    offest.add(rowOffest, colOffest);
+    std::cout << offest.getRow() << "," << offest.getCol() << std::endl;
 }
 
 
 /* LBlock
 -----------------------------------------------------------------------------------------*/
-LBlock::LBlock() : Block(1){
+LBlock::LBlock() : Block(){
+    setId(1);
     addStatus(0, {Position(0,2), Position(1,0), Position(1,1), Position(1,2)});
     addStatus(1, {Position(0,1), Position(1,1), Position(2,1), Position(2,2)});
     addStatus(2, {Position(1,0), Position(1,1), Position(1,2), Position(2,0)});
@@ -46,7 +66,8 @@ LBlock::LBlock() : Block(1){
 }
 
 /* IBlock
------------------------------------------------------------------------------------------*/JBlock::JBlock() : Block(2){
+-----------------------------------------------------------------------------------------*/JBlock::JBlock() : Block(){
+    setId(2);
     addStatus(0, {Position(0,0), Position(1,0), Position(1,1), Position(1,2)});
     addStatus(1, {Position(0,1), Position(0,2), Position(1,1), Position(2,1)});
     addStatus(2, {Position(1,0), Position(1,1), Position(1,2), Position(2,2)});
@@ -55,7 +76,8 @@ LBlock::LBlock() : Block(1){
 
 /* IBlock
 -----------------------------------------------------------------------------------------*/
-IBlock::IBlock() : Block(3){
+IBlock::IBlock() : Block(){
+    setId(3);
     addStatus(0, {Position(1,0), Position(1,1), Position(1,2), Position(1,3)});
     addStatus(1, {Position(0,2), Position(1,2), Position(2,2), Position(3,2)});
     addStatus(2, {Position(2,0), Position(2,1), Position(2,2), Position(2,3)});
@@ -64,7 +86,8 @@ IBlock::IBlock() : Block(3){
 
 /* OBlock
 -----------------------------------------------------------------------------------------*/
-OBlock::OBlock() : Block(4){
+OBlock::OBlock() : Block(){
+    setId(4);
     addStatus(0, {Position(0,0), Position(0,1), Position(1,0), Position(1,1)});
     addStatus(1, {Position(0,0), Position(0,1), Position(1,0), Position(1,1)});
     addStatus(2, {Position(0,0), Position(0,1), Position(1,0), Position(1,1)});
@@ -73,7 +96,8 @@ OBlock::OBlock() : Block(4){
 
 /* SBlock
 -----------------------------------------------------------------------------------------*/
-SBlock::SBlock() : Block(5){
+SBlock::SBlock() : Block(){
+    setId(5);
     addStatus(0, {Position(0,1), Position(0,2), Position(1,0), Position(1,1)});
     addStatus(1, {Position(0,1), Position(1,1), Position(1,2), Position(2,2)});
     addStatus(2, {Position(1,1), Position(1,2), Position(2,0), Position(2,1)});
@@ -82,7 +106,8 @@ SBlock::SBlock() : Block(5){
 
 /* TBlock
 -----------------------------------------------------------------------------------------*/
-TBlock::TBlock() : Block(6){
+TBlock::TBlock() : Block(){
+    setId(6);
     addStatus(0, {Position(0,1), Position(1,0), Position(1,1), Position(1,2)});
     addStatus(1, {Position(0,1), Position(1,1), Position(1,2), Position(2,1)});
     addStatus(2, {Position(1,0), Position(1,1), Position(1,2), Position(2,1)});
@@ -91,7 +116,8 @@ TBlock::TBlock() : Block(6){
 
 /* ZBlock
 -----------------------------------------------------------------------------------------*/
-ZBlock::ZBlock() : Block(7){
+ZBlock::ZBlock() : Block(){
+    setId(7);
     addStatus(0, {Position(0,0), Position(0,1), Position(1,1), Position(1,2)});
     addStatus(1, {Position(0,2), Position(1,1), Position(1,2), Position(2,1)});
     addStatus(2, {Position(1,0), Position(1,1), Position(2,1), Position(2,2)});

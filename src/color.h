@@ -14,4 +14,4 @@ extern Color purple;
 extern Color cyan;
 extern Color blue;
 
-extern std::vector<Color> colorVertor;
+extern std::vector<Color> colorVector;

@@ -44,3 +44,10 @@ void Grid::Draw(int x, int y){
                     cellSize - GRID_WIDTH, 
                     cellSize - GRID_WIDTH, gridColor[1]);
 }
+
+bool Grid::isCellOutside(int row, int col){
+    if(row >= 0 && row < GRID_ROW_SIZE && col >= 0 && col < GRID_COL_SIZE){
+        return false;
+    }
+    return true;
+}

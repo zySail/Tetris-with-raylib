@@ -1,3 +1,5 @@
+#pragma once
+
 #include <array>
 #include <vector>
 #include <raylib.h>
@@ -18,4 +20,5 @@ public:
     void print();
     void Draw();
     void Draw(int x, int y);
+    bool isCellOutside(int row, int col);
 };

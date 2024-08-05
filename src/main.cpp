@@ -2,27 +2,25 @@
 #include "color.h"
 #include "grid.h"
 #include "block.h"
-#include <thread>
-#include <chrono>
+#include "game.h"
 
 int main()
 {
     InitWindow(500 + GRID_WIDTH, 1000 + GRID_WIDTH, "Tetris");
-    SetTargetFPS(1);
-
-    Grid gameGrid = Grid();
-    gameGrid.print();
+    SetTargetFPS(60);
+    Game game = Game();
+    //gameGrid.print();
 
     while(!WindowShouldClose()){
+        game.HandleInput();
         BeginDrawing();
         ClearBackground(darkBlue);
-        gameGrid.Draw();
+        game.Draw();
         EndDrawing();
     }
     
     EndDrawing();
 
-    
     CloseWindow();
     return 0;
 }

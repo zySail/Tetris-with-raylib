@@ -11,16 +11,18 @@ private:
     //const int blockSize;
     int statusVal;
     std::map<int, std::vector<Position>> status;
+    Position offest;
 public:
-    Block(int id);
+    Block();
     void addStatus(int key, std::vector<Position> pos);
-    void changeStatus();
+    void rotate();
+    void undoRotate();
     void Draw();
-    void setId(int new_id);
+    void setId(int new_id); // used by child block constructor
+    void move(int rowOffest, int colOffest);
+    std::vector<Position> getCellPosition(); // apply offest to all status
 };
 
-//std::pair<int, int> postion;
-//virtual void draw() = 0; 
 //virtual ~block();
 
 class LBlock : public Block{
