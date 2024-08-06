@@ -18,6 +18,7 @@ private:
 public: 
     Game();
     void loop();
+    std::vector<Block> getBlocks();
     Block getRandonBlock();
     bool isBlockOutside();
     bool isBlockCollision();
@@ -29,4 +30,6 @@ public:
     void setDropSpeed(double newSpeed);
     void dropBlock();
     void lockBlock();
+    void reset();
+    void calculateScore(int linesCleared, int moveDownPoints);
 };

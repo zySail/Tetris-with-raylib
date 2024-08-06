@@ -46,10 +46,10 @@ std::vector<Position> Block::getCellPosition(){
 void Block::Draw(){
     for(const Position& cellPos : getCellPosition()){ 
         //ergodic current status's every block's position then draw the cell
-        DrawRectangle(  cellPos.getCol()*GRID_CELL_SIZE + GRID_WIDTH, 
-                        cellPos.getRow()*GRID_CELL_SIZE + GRID_WIDTH, 
-                        GRID_CELL_SIZE - GRID_WIDTH, 
-                        GRID_CELL_SIZE - GRID_WIDTH, 
+        DrawRectangle(  cellPos.getCol() * GRID_CELL_SIZE + GRID_OFFEST_COL, 
+                        cellPos.getRow() * GRID_CELL_SIZE + GRID_OFFEST_ROW, 
+                        GRID_CELL_SIZE - GRID_LINE_WIDTH, 
+                        GRID_CELL_SIZE - GRID_LINE_WIDTH, 
                         colorVector[id] );
     }
 }

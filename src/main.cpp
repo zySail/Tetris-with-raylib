@@ -6,7 +6,9 @@
 
 int main()
 {
-    InitWindow(500 + GRID_WIDTH, 1000 + GRID_WIDTH, "Tetris");
+    InitWindow( GRID_WIDTH  + 2 * GRID_OFFEST_COL + GRID_LINE_WIDTH + UI_WIDTH, 
+                GRID_LENGTH + 2 * GRID_OFFEST_ROW + GRID_LINE_WIDTH, 
+                "Tetris");
     SetTargetFPS(60);
     Game game = Game();
 

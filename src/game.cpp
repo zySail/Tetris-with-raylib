@@ -1,22 +1,28 @@
 #include "game.h"
 #include "time.h"
+#include <iostream>
 
 static int count = 0;
 static int picked[7] = {0};
 
 Game::Game(){
     gameGrid = Grid();
-    blocks = {LBlock() , JBlock(), IBlock(), OBlock(), SBlock(), TBlock(), ZBlock()};
+    blocks = getBlocks();
     currentBlock = getRandonBlock();
     nextBlock = getRandonBlock();
     dropSpeed = 0.1;
     gameOverFlag = false;
+    score = 0;
 }
 
 void Game::loop(){
     gameGrid.Draw();
     currentBlock.Draw();
     dropBlock();
+}
+
+std::vector<Block> Game::getBlocks(){
+    return {LBlock() , JBlock(), IBlock(), OBlock(), SBlock(), TBlock(), ZBlock()};
 }
 
 void Game::setDropSpeed(double newSpeed){
@@ -58,10 +64,13 @@ void Game::HandleInput(){
         break;
     case KEY_DOWN:
         moveBlockDown();
+        calculateScore(0,1);
         break;
     case KEY_UP:
         rotateBlock();
         break;
+    case KEY_R:
+        reset();
     default:
         break;
     }
@@ -117,7 +126,8 @@ void Game::lockBlock(){
     for(const Position& cellPos : currentBlock.getCellPosition()){
         gameGrid.grid[cellPos.getRow()][cellPos.getCol()] = currentBlock.getId();
     }
-    int s = gameGrid.clearFullRow();
+    int linesCleared = gameGrid.clearFullRow();
+    calculateScore(linesCleared, 0);
     currentBlock = nextBlock;
     nextBlock = getRandonBlock();
     if(isBlockCollision()){
@@ -132,4 +142,31 @@ bool Game::isBlockCollision(){
         }
     }
     return false; 
+}
+
+void Game::reset(){
+    gameGrid.Initialize();
+    blocks = getBlocks();
+    currentBlock = getRandonBlock();
+    nextBlock = getRandonBlock();
+    score = 0;
+}
+
+void Game::calculateScore(int linesCleared, int moveDownPoints){
+    switch (linesCleared)
+    {
+    case 1:
+        score += 100;
+        break;
+    case 2:
+        score += 300;
+        break;
+    case 3:
+        score += 500;
+        break;
+    default:
+        break;
+    }
+    score += moveDownPoints;
+    return;
 }

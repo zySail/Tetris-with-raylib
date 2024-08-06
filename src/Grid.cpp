@@ -33,16 +33,16 @@ void Grid::Draw(){
             int cellValue = grid[i][j];
             int x = j * cellSize;
             int y = i * cellSize;
-            DrawRectangle(x + GRID_WIDTH, y + GRID_WIDTH, cellSize - GRID_WIDTH, cellSize - GRID_WIDTH, gridColor[cellValue]);
+            DrawRectangle(x + GRID_OFFEST_COL, y + GRID_OFFEST_ROW, cellSize - GRID_LINE_WIDTH, cellSize - GRID_LINE_WIDTH, gridColor[cellValue]);
         }
     }     
 }
 
 void Grid::Draw(int x, int y){
-    DrawRectangle(  x*GRID_CELL_SIZE + GRID_WIDTH, 
-                    y*GRID_CELL_SIZE + GRID_WIDTH, 
-                    cellSize - GRID_WIDTH, 
-                    cellSize - GRID_WIDTH, gridColor[1]);
+    DrawRectangle(  x*GRID_CELL_SIZE + GRID_LINE_WIDTH, 
+                    y*GRID_CELL_SIZE + GRID_LINE_WIDTH, 
+                    cellSize - GRID_LINE_WIDTH, 
+                    cellSize - GRID_LINE_WIDTH, gridColor[1]);
 }
 
 bool Grid::isCellOutside(int row, int col){
