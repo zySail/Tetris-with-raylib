@@ -12,13 +12,10 @@ https://github.com/educ8s/Raylib-CPP-Starter-Template-for-VSCODE-V2
 
 [(2248) Creating Tetris in C++ with raylib - Beginner Tutorial (OOP) - YouTube](https://www.youtube.com/watch?v=wVYKG_ch4yM)
 
-https://www.youtube.com/watch?v=wVYKG_ch4yM
-
 ## 改进之处
 
 * 对成员变量进行了大量的封装，将许多功能整理到不同的文件。
 * 新增了功能可以使用户可以根据config文件直接修改程序部分的界面，而不用担心兼容性问题。
-
 * 提高了程序的安全性、可读性和易修改性。
 
 ## 不足之处
@@ -40,8 +37,6 @@ https://github.com/educ8s/Raylib-CPP-Starter-Template-for-VSCODE-V2
 ## reference
 
 [(2248) Creating Tetris in C++ with raylib - Beginner Tutorial (OOP) - YouTube](https://www.youtube.com/watch?v=wVYKG_ch4yM)
-
-https://www.youtube.com/watch?v=wVYKG_ch4yM
 
 ## Improvements
 
