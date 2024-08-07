@@ -6,8 +6,8 @@
 
 int main()
 {
-    InitWindow( GRID_WIDTH  + 2 * GRID_OFFEST_COL + GRID_LINE_WIDTH + UI_WIDTH, 
-                GRID_LENGTH + 2 * GRID_OFFEST_ROW + GRID_LINE_WIDTH, 
+    InitWindow( GRID_WIDTH  + GRID_OFFEST_COL  + UI_WIDTH, 
+                GRID_LENGTH + 2 * GRID_OFFEST_ROW , 
                 "Tetris");
     SetTargetFPS(60);
     Game game = Game();
@@ -17,6 +17,9 @@ int main()
         BeginDrawing();
         ClearBackground(darkBlue);
         game.loop();
+
+        //DrawTextEx(font, "hello", (Vector2){550,100}, 70, 0, WHITE);
+
         EndDrawing();
     }
 

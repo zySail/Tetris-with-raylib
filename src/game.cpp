@@ -1,6 +1,7 @@
 #include "game.h"
 #include "time.h"
 #include <iostream>
+#include "ui.h"
 
 static int count = 0;
 static int picked[7] = {0};
@@ -10,15 +11,22 @@ Game::Game(){
     blocks = getBlocks();
     currentBlock = getRandonBlock();
     nextBlock = getRandonBlock();
-    dropSpeed = 0.1;
+    dropSpeed = 0.2; // drop per time
     gameOverFlag = false;
     score = 0;
+    loadFont();
 }
 
 void Game::loop(){
     gameGrid.Draw();
-    currentBlock.Draw();
-    dropBlock();
+    DrawUI(score, nextBlock);
+    if(!gameOverFlag){
+        currentBlock.Draw();
+        dropBlock();        
+    }
+    else{
+        DrawGameOver();
+    }
 }
 
 std::vector<Block> Game::getBlocks(){
@@ -145,6 +153,7 @@ bool Game::isBlockCollision(){
 }
 
 void Game::reset(){
+    gameOverFlag = false;
     gameGrid.Initialize();
     blocks = getBlocks();
     currentBlock = getRandonBlock();
@@ -168,5 +177,10 @@ void Game::calculateScore(int linesCleared, int moveDownPoints){
         break;
     }
     score += moveDownPoints;
+    if(score > 999999){
+        gameOverFlag = true;
+    }
     return;
 }
+
+

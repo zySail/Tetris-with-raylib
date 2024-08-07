@@ -8,4 +8,4 @@
 #define GRID_LINE_WIDTH  2
 #define GRID_OFFEST_ROW  20
 #define GRID_OFFEST_COL  20
-#define UI_WIDTH         330
+#define UI_WIDTH         300

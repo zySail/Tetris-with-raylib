@@ -54,6 +54,16 @@ void Block::Draw(){
     }
 }
 
+void Block::Draw(float x, float y){ //draw block at (x,y)
+    for(const Position& cellPos : status[statusVal]){ 
+        DrawRectangle(  cellPos.getCol() * GRID_CELL_SIZE + x, 
+                        cellPos.getRow() * GRID_CELL_SIZE + y, 
+                        GRID_CELL_SIZE - GRID_LINE_WIDTH, 
+                        GRID_CELL_SIZE - GRID_LINE_WIDTH, 
+                        colorVector[id] );
+    }   
+}
+
 void Block::move(int rowOffest, int colOffest){
     offest.add(rowOffest, colOffest);
 }
@@ -70,7 +80,8 @@ LBlock::LBlock() : Block(){
 }
 
 /* IBlock
------------------------------------------------------------------------------------------*/JBlock::JBlock() : Block(){
+-----------------------------------------------------------------------------------------*/
+JBlock::JBlock() : Block(){
     setId(2);
     addStatus(0, {Position(0,0), Position(1,0), Position(1,1), Position(1,2)});
     addStatus(1, {Position(0,1), Position(0,2), Position(1,1), Position(2,1)});
